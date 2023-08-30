@@ -35,6 +35,81 @@ paths:
                 $ref: '#/components/schemas/Segment'
         '409':
           description: Segment with this slug already exists
+  /api/segment/delete:
+    delete:
+      tags:
+        - segment
+      summary: Delete segment by slug
+      description: Delete segment by slug
+      operationId: segmentDelete
+      requestBody:
+        description: Delete segment by slug
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Segment'
+        required: true
+      responses:
+        '200':
+          description: Successfully deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+        '400':
+          description: Segment with this slug does not exist
+  /api/user/create:
+    post:
+      tags:
+        - user
+      summary: Create or update user
+      description: Create or update user, add and delete segments to the user
+      operationId: userCreate
+      requestBody:
+        description: Create or update user, add and delete segments to the user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPayload'
+        required: true
+      responses:
+        '201':
+          description: Successfully created new user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '200':
+          description: Successfully updated existing user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '502':
+          description: Bad gateway
+  /api/user/get:
+    get:
+      tags:
+        - user
+      summary: Get user by ID
+      description: Get all segments of user by user's ID
+      operationId: userGet
+      requestBody:
+        description: Get all segments of user by user's ID
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPayload'
+        required: true
+      responses:
+        '200':
+          description: Successfully got user info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: User with this ID not found
 components:
   schemas:
     Segment:
