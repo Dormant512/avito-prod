@@ -48,6 +48,7 @@ func (ac *SegmentController) CreateSegment(ctx *gin.Context) {
 	}
 	newSegment.SegmentID = newID
 
+	// TODO: maybe remove the following? It's not specified in swagger
 	if result.Error != nil && strings.Contains(result.Error.Error(), "duplicate key value violates unique") {
 		ctx.JSON(http.StatusConflict, gin.H{"status": "fail", "message": "Segment with that ID already exists"})
 		return

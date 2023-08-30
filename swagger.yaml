@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: AvitoTech Dynamic User Segmentation - OpenAPI 3.0
+  description: |-
+    This is a product task for AvitoTech backend internship for Golang. This is a REST API for dynamically segmenting users.
+  contact:
+    email: mikegrig@inbox.ru
+  version: 1.0.0
+tags:
+  - name: segment
+    description: Operations about segments
+  - name: user
+    description: Operations about user
+paths:
+  /api/segment/create:
+    post:
+      tags:
+        - segment
+      summary: Create a new segment
+      description: Create a new segment, optionally add random users to it
+      operationId: segmentCreate
+      requestBody:
+        description: Create a new segment, optionally add random users to it
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SegmentPayload'
+        required: true
+      responses:
+        '201':
+          description: Successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Segment'
+        '409':
+          description: Segment with this slug already exists
+components:
+  schemas:
+    Segment:
+      type: object
+      properties:
+        SegmentId:
+          type: string
+          format: uuid
+          example: "05502f74-4563-4bb7-af95-4e6dc4d59285"
+        SegmentSlug:
+          type: string
+          format: string
+          example: "AVITO-30"
+    User:
+      type: object
+      properties:
+        UserUUID:
+          type: string
+          format: uuid
+          example: "78d99d6a-e20e-48bb-bae5-ae61e2fb17b9"
+        UserID:
+          type: integer
+          format: int64
+          example: 1
+    UserSegment:
+      type: object
+      properties:
+        UserUUID:
+          type: string
+          format: uuid
+          example: "78d99d6a-e20e-48bb-bae5-ae61e2fb17b9"
+        SegmentId:
+          type: string
+          format: uuid
+          example: "05502f74-4563-4bb7-af95-4e6dc4d59285"
+    UserPayload:
+      type: object
+      properties:
+        UserID:
+          type: integer
+          format: int64
+          example: 1
+        SegmentsAdd:
+          type: array
+          format: string
+          example: [ "AVITO-30", "BigTech" ]
+        SegmentsDelete:
+          type: array
+          format: string
+          example: [ "AVITO-5", "SmallTech" ]
+    UserResponse:
+      type: object
+      properties:
+        UserID:
+          type: integer
+          format: int64
+          example:
+        Segments:
+          type: array
+          format: string
+          example: [ "AVITO-30", "BigTech" ]
+    SegmentPayload:
+      type: object
+      properties:
+        SegmentId:
+          type: string
+          format: uuid
+          example: "05502f74-4563-4bb7-af95-4e6dc4d59285"
+        SegmentSlug:
+          type: string
+          format: string
+          example: "AVITO-30"
+        AutoAdd:
+          type: boolean
+          format: bool
+          example: true
+        UserPercentage:
+          type: number
+          format: float64
+          example: 33.3
