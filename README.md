@@ -2,6 +2,15 @@
 
 Production Golang task for AvitoTech backend internship.
 
+## Basic usage
+
+Full containerization off the app and the database was impossible due to problems in host resolving.
+
+To run the API, one should:
+1. `docker compose up -d` from the root directory of the project to run the database container;
+2. `go run main.go` or use [AIR](https://github.com/cosmtrek/air) to run the application;
+3. use `localhost:8000` for HTTP-requests.
+
 ## Database specification
 
 ### Entities
